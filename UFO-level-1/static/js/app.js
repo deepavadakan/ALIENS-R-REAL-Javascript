@@ -14,8 +14,11 @@ form.on("submit",runEnter);
 // Complete the event handler function for the form
 function runEnter() {
 
+    console.log(d3.event);
     // Prevent the page from refreshing
-    d3.event.preventDefault();
+    if (!!d3.event) {
+        d3.event.preventDefault();
+    }
     
     // Select the input element and get the raw HTML node
     var inputElement = d3.select("#datetime");
@@ -37,6 +40,8 @@ function runEnter() {
   
     // find the tbody element
     var tbody = d3.select("tbody");
+
+    tbody.html("")
     
     filteredData.forEach(sighting => {
         // for each sighting, add a row
