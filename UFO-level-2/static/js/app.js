@@ -34,24 +34,29 @@ function runEnter() {
     console.log(inputCountry);
     console.log(inputShape);
 
+    var filteredData = tableData;
+
+    // filter data by date
     if (inputDate != "") {
         var filteredData = tableData.filter(sighting => sighting.datetime === inputDate);
-    } else {
-        var filteredData = tableData;
     }
 
+    // filter data by city
     if (inputCity != "") {
         filteredData = filteredData.filter(sighting => sighting.city === inputCity);
     }
 
+    // filter data by state
     if (inputState != "") {
         filteredData = filteredData.filter(sighting => sighting.state === inputState);
     }
 
+    // filter data by country
     if (inputCountry != "") {
         filteredData = filteredData.filter(sighting => sighting.country === inputCountry);
     }
 
+    // filter data by shape
     if (inputShape != "") {
         filteredData = filteredData.filter(sighting => sighting.shape === inputShape);
     }
