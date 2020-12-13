@@ -41,8 +41,10 @@ function runEnter() {
     // find the tbody element
     var tbody = d3.select("tbody");
 
-    tbody.html("")
+    // first clear the table of existing data
+    tbody.html("");
     
+    // display the data requested
     filteredData.forEach(sighting => {
         // for each sighting, add a row
         var row = tbody.append("tr");
