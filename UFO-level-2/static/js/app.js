@@ -15,7 +15,7 @@ form.on("submit",runEnter);
 function runEnter() {
 
     console.log(d3.event);
-    // Prevent the page from refreshing
+    // Prevent the page from refreshing if event is not null
     if (!!d3.event) {
         d3.event.preventDefault();
     }
