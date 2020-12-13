@@ -21,21 +21,41 @@ function runEnter() {
     }
     
     // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
-  
-    // Get the value property of the input element
-    var inputDate = inputElement.property("value");
+    // And get the value property of the input element
+    var inputDate = d3.select("#datetime").property("value");
+    var inputCity = d3.select("#city").property("value");
+    var inputState = d3.select("#state").property("value");
+    var inputCountry = d3.select("#country").property("value");
+    var inputShape = d3.select("#shape").property("value");
   
     console.log(inputDate);
-  
-    if (inputDate === ""){
-        // if user does not enter a date, use all data
-        var filteredData = tableData;
-    } else {
-        // Find all data for user input date
+    console.log(inputCity);
+    console.log(inputState);
+    console.log(inputCountry);
+    console.log(inputShape);
+
+    if (inputDate != "") {
         var filteredData = tableData.filter(sighting => sighting.datetime === inputDate);
+    } else {
+        var filteredData = tableData;
     }
-    
+
+    if (inputCity != "") {
+        filteredData = filteredData.filter(sighting => sighting.city === inputCity);
+    }
+
+    if (inputState != "") {
+        filteredData = filteredData.filter(sighting => sighting.state === inputState);
+    }
+
+    if (inputCountry != "") {
+        filteredData = filteredData.filter(sighting => sighting.country === inputCountry);
+    }
+
+    if (inputShape != "") {
+        filteredData = filteredData.filter(sighting => sighting.shape === inputShape);
+    }
+  
     console.log(filteredData);
   
     // find the tbody element
