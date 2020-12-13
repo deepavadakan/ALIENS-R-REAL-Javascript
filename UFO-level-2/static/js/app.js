@@ -38,7 +38,7 @@ function runEnter() {
 
     // filter data by date
     if (inputDate != "") {
-        var filteredData = tableData.filter(sighting => sighting.datetime === inputDate);
+        filteredData = filteredData.filter(sighting => sighting.datetime === inputDate);
     }
 
     // filter data by city
