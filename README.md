@@ -20,9 +20,9 @@
 
 ## Level 2: Multiple Search Categories
 
-1. Everythin from Level-1.
+1. Everything from Level-1.
 
-2. Using multiple input tags and select dropdowns, allow the user can to set multiple filters and search for UFO sightings using the following criteria based on the table columns:
+2. Using multiple input tags and select dropdowns, allow the user to set multiple filters and search for UFO sightings using the following criteria based on the table columns:
 
     * date/time
     * city
@@ -30,7 +30,7 @@
     * country
     * shape
 
-3. Dropdowns are automatically filled with data from the data for user to select.
+3. Dropdowns are automatically filled with data for user to select.
 
 4. Added a clear input button to clear all input entries and refresh the page.
 
