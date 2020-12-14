@@ -1,62 +1,77 @@
 // from data.js
 var tableData = data;
 
-// create the drop down list for date
-var datetime = d3.select("#datetime");
-var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
-console.log(datetimeList);
-datetime.append("option").text("").attr("value","");
-datetimeList.forEach(item => {
-    datetime.append("option").text(item).attr("value",item);
-});
-
-// create the drop down list for country
-var country = d3.select("#country");
-var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
-console.log(countryList);
-country.append("option").text("").attr("value","");
-countryList.forEach(item => {
-    country.append("option").text(item).attr("value",item);
-});
-
-// create the drop down list for state
-var state = d3.select("#state");
-var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-console.log(stateList);
-state.append("option").text("").attr("value","");
-stateList.forEach(item => {
-    state.append("option").text(item).attr("value",item);
-});
-
-// create the drop down list for city
-var city = d3.select("#city");
-var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
-console.log(cityList);
-city.append("option").text("").attr("value","");
-cityList.forEach(item => {
-    city.append("option").text(item).attr("value",item);
-});
-
-// create the drop down list for shape
-var shape = d3.select("#shape");
-var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
-console.log(shapesList);
-shape.append("option").text("").attr("value","");
-shapesList.forEach(item => {
-    shape.append("option").text(item).attr("value",item);
-});
-
 // Select the button
 var button = d3.select("#filter-btn");
+var clearBtn = d3.select("#clear-btn");
 
 // Select the form
 var form = d3.select("form");
 
+// Select drop down
+var datetime = d3.select("#datetime");
+var country = d3.select("#country");
+var state = d3.select("#state");
+var city = d3.select("#city");
+var shape = d3.select("#shape");
+
 // Create event handlers 
 button.on("click", runEnter);
+clearBtn.on("click", runClear);
 form.on("submit",runEnter);
 country.on("change",getStateForCountry);
 state.on("change",getCityForState);
+
+runClear();
+//runEnter();
+
+function runClear() {
+    // create the drop down list for date
+    var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
+    console.log(datetimeList);
+    datetime.html("");
+    datetime.append("option").text("").attr("value","");
+    datetimeList.forEach(item => {
+        datetime.append("option").text(item).attr("value",item);
+    });
+
+    // create the drop down list for country
+    var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
+    console.log(countryList);
+    country.html("");
+    country.append("option").text("").attr("value","");
+    countryList.forEach(item => {
+        country.append("option").text(item).attr("value",item);
+    });
+
+    // create the drop down list for state
+    var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+    console.log(stateList);
+    state.html("");
+    state.append("option").text("").attr("value","");
+    stateList.forEach(item => {
+        state.append("option").text(item).attr("value",item);
+    });
+
+    // create the drop down list for city
+    var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+    console.log(cityList);
+    city.html("");
+    city.append("option").text("").attr("value","");
+    cityList.forEach(item => {
+        city.append("option").text(item).attr("value",item);
+    });
+
+    // create the drop down list for shape
+    var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
+    console.log(shapesList);
+    shape.html("");
+    shape.append("option").text("").attr("value","");
+    shapesList.forEach(item => {
+        shape.append("option").text(item).attr("value",item);
+    });
+    runEnter();
+};
 
 // function to fill state and city dropdown for selected country
 function getStateForCountry() {
@@ -212,4 +227,3 @@ function runEnter() {
 
 };
 
-runEnter();
