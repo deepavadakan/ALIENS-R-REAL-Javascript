@@ -18,7 +18,23 @@
 
 [ufo-level-1](static/images/ufo-level-1.png)
 
+## Level 2: Multiple Search Categories
 
+1. Everythin from Level-1.
+
+2. Using multiple input tags and select dropdowns, allow the user can to set multiple filters and search for UFO sightings using the following criteria based on the table columns:
+
+    * date/time
+    * city
+    * state
+    * country
+    * shape
+
+3. Dropdowns are automatically filled with data from the data for user to select.
+
+4. Added a clear input button to clear all input entries and refresh the page.
+
+[ufo-level-2](static/images/ufo-level-2.png)
 
 ## Contact
 Created by [@deepavadakan](https://github.com/)
