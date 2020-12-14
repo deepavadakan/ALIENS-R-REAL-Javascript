@@ -44,7 +44,7 @@ function runEnter() {
     // first clear the table of existing data
     tbody.html("");
     
-    // display the data requested
+    // display the data
     filteredData.forEach(sighting => {
         // for each sighting, add a row
         var row = tbody.append("tr");
