@@ -1,6 +1,14 @@
 // from data.js
 var tableData = data;
 
+// create the drop down list for shape
+var shape = d3.select("#state");
+var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
+console.log(shapesList);
+shapesList.forEach(item => {
+    shape.append("option").text(item).attr("value",item);
+});
+
 // Select the button
 var button = d3.select("#filter-btn");
 
