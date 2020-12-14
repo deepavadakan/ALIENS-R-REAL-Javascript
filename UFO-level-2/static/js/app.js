@@ -2,11 +2,21 @@
 var tableData = data;
 
 // create the drop down list for shape
-var shape = d3.select("#state");
+var shape = d3.select("#shape");
 var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
 console.log(shapesList);
+shape.append("option").text("None").attr("value","");
 shapesList.forEach(item => {
     shape.append("option").text(item).attr("value",item);
+});
+
+// create the drop down list for city
+var city = d3.select("#city");
+var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+console.log(cityList);
+city.append("option").text("None").attr("value","");
+cityList.forEach(item => {
+    city.append("option").text(item).attr("value",item);
 });
 
 // Select the button
