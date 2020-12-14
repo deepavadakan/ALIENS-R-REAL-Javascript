@@ -10,13 +10,13 @@ datetimeList.forEach(item => {
     datetime.append("option").text(item).attr("value",item);
 });
 
-// create the drop down list for city
-var city = d3.select("#city");
-var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
-console.log(cityList);
-city.append("option").text("").attr("value","");
-cityList.forEach(item => {
-    city.append("option").text(item).attr("value",item);
+// create the drop down list for country
+var country = d3.select("#country");
+var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
+console.log(countryList);
+country.append("option").text("").attr("value","");
+countryList.forEach(item => {
+    country.append("option").text(item).attr("value",item);
 });
 
 // create the drop down list for state
@@ -28,13 +28,13 @@ stateList.forEach(item => {
     state.append("option").text(item).attr("value",item);
 });
 
-// create the drop down list for country
-var country = d3.select("#country");
-var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
-console.log(countryList);
-country.append("option").text("").attr("value","");
-countryList.forEach(item => {
-    country.append("option").text(item).attr("value",item);
+// create the drop down list for city
+var city = d3.select("#city");
+var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+console.log(cityList);
+city.append("option").text("").attr("value","");
+cityList.forEach(item => {
+    city.append("option").text(item).attr("value",item);
 });
 
 // create the drop down list for shape
@@ -58,29 +58,31 @@ form.on("submit",runEnter);
 country.on("change",getStateForCountry);
 state.on("change",getCityForState);
 
-// fill state and city for country
+// function to fill state and city dropdown for selected country
 function getStateForCountry() {
+    // Get value property for country
     var inputCountry = d3.select("#country").property("value");
     if (inputCountry != "") {
-        console.log("getStateForCountry");
-        console.log(inputCountry);
+        // fill city drop down with cities for selected country
         var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
-        console.log(stateCountryData);
+        // find list of unique cities and states
         var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
         var cityCountryList = stateCountryData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
         
-        console.log(stateCountryList);
+        // clear the state drop down list
         state.html("");
         state.append("option").text("").attr("value","");
         stateCountryList.forEach(item => {
             state.append("option").text(item).attr("value",item);
         });
+
+        // clear the city drop down list
         city.html("");
         city.append("option").text("").attr("value","");
         cityCountryList.forEach(item => {
             city.append("option").text(item).attr("value",item);
         });
-    } else {
+    } else { //if country is empty, fill city and state drowndown with all data
         state.html("");
         state.append("option").text("").attr("value","");
         stateList.forEach(item => {
@@ -95,29 +97,44 @@ function getStateForCountry() {
     }
 };
 
-
-// fill city for state
+// function to fill city dropdown for selected state
 function getCityForState() {
+    // Get value property for state
     var inputState = d3.select("#state").property("value");
+
     if (inputState != "") {
-        console.log("getCityForState");
-        console.log(inputState);
+        // fill city drop down with cities for selected state
         var stateCityData = tableData.filter(sighting => sighting.state === inputState);
-        console.log(stateCityData);
+        // find unique states
         var stateCityList = stateCityData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
-        
-        console.log(stateCityList);
+
+        // clear the city drop down list
         city.html("");
         city.append("option").text("").attr("value","");
         stateCityList.forEach(item => {
             city.append("option").text(item).attr("value",item);
         });
     } else {
-        city.html("");
-        city.append("option").text("").attr("value","");
-        cityList.forEach(item => {
-            city.append("option").text(item).attr("value",item);
-        });
+        // if city is empty, fill city drop down with all cities
+        // check if country is selected
+        var inputCountry = d3.select("#country").property("value");
+        if (inputCountry === "") {
+            // if country is empty, list all cities
+            city.html("");
+            city.append("option").text("").attr("value","");
+            cityList.forEach(item => {
+                city.append("option").text(item).attr("value",item);
+            });
+        } else {
+            // if country is not empty, list all cities for selected country
+            var stateCityData = tableData.filter(sighting => sighting.country === inputCountry);
+            var stateCityList = stateCityData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+            city.html("");
+            city.append("option").text("").attr("value","");
+            stateCityList.forEach(item => {
+                city.append("option").text(item).attr("value",item);
+            });
+        }
     }
 };
 
