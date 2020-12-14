@@ -51,12 +51,46 @@ var button = d3.select("#filter-btn");
 // Select the form
 var form = d3.select("form");
 
-// Select the form
-var form = d3.select("#country");
-
 // Create event handlers 
 button.on("click", runEnter);
 form.on("submit",runEnter);
+country.on("change",getStateForCountry);
+state.on("change",getStateForCountry);
+
+// fill state and city for country
+function getStateForCountry() {
+    //var stateCountryList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+    var inputCountry = d3.select("#country").property("value");
+    console.log("runCountry");
+    console.log(inputCountry);
+    var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
+    console.log(stateCountryData);
+    var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+    
+    console.log(stateCountryList);
+    state.html("");
+    state.append("option").text("").attr("value","");
+    stateCountryList.forEach(item => {
+        state.append("option").text(item).attr("value",item);
+    });
+};
+
+function getCityForState() {
+    //var stateCountryList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+    var inputState = d3.select("#country").property("value");
+    console.log("runCountry");
+    console.log(inputCountry);
+    var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
+    console.log(stateCountryData);
+    var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+    
+    console.log(stateCountryList);
+    state.html("");
+    state.append("option").text("").attr("value","");
+    stateCountryList.forEach(item => {
+        state.append("option").text(item).attr("value",item);
+    });
+};
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -128,7 +162,7 @@ function runEnter() {
         row.append("td").text(sighting.shape);
         row.append("td").text(sighting.durationMinutes);
         row.append("td").text(sighting.comments);
-    })
+    });
 
 };
 
