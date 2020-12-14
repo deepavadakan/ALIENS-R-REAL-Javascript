@@ -21,7 +21,6 @@ var countryList = tableData.map(sighting => sighting.country).filter((value, ind
 var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
 var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
 var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
-
 // Create event handlers 
 button.on("click", runEnter);
 clearBtn.on("click", runClear);
