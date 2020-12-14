@@ -1,6 +1,15 @@
 // from data.js
 var tableData = data;
 
+// create the drop down list for date
+var datetime = d3.select("#datetime");
+var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
+console.log(datetimeList);
+datetime.append("option").text("").attr("value","");
+datetimeList.forEach(item => {
+    datetime.append("option").text(item).attr("value",item);
+});
+
 // create the drop down list for city
 var city = d3.select("#city");
 var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
@@ -19,6 +28,14 @@ stateList.forEach(item => {
     state.append("option").text(item).attr("value",item);
 });
 
+// create the drop down list for country
+var country = d3.select("#country");
+var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
+console.log(countryList);
+country.append("option").text("").attr("value","");
+countryList.forEach(item => {
+    country.append("option").text(item).attr("value",item);
+});
 // create the drop down list for shape
 var shape = d3.select("#shape");
 var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
@@ -32,7 +49,10 @@ shapesList.forEach(item => {
 var button = d3.select("#filter-btn");
 
 // Select the form
-var form = d3.select("#form");
+var form = d3.select("form");
+
+// Select the form
+var form = d3.select("#country");
 
 // Create event handlers 
 button.on("click", runEnter);
