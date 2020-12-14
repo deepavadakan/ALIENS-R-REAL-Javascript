@@ -36,6 +36,7 @@ country.append("option").text("").attr("value","");
 countryList.forEach(item => {
     country.append("option").text(item).attr("value",item);
 });
+
 // create the drop down list for shape
 var shape = d3.select("#shape");
 var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
@@ -55,41 +56,69 @@ var form = d3.select("form");
 button.on("click", runEnter);
 form.on("submit",runEnter);
 country.on("change",getStateForCountry);
-state.on("change",getStateForCountry);
+state.on("change",getCityForState);
 
 // fill state and city for country
 function getStateForCountry() {
-    //var stateCountryList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
     var inputCountry = d3.select("#country").property("value");
-    console.log("runCountry");
-    console.log(inputCountry);
-    var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
-    console.log(stateCountryData);
-    var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-    
-    console.log(stateCountryList);
-    state.html("");
-    state.append("option").text("").attr("value","");
-    stateCountryList.forEach(item => {
-        state.append("option").text(item).attr("value",item);
-    });
+    if (inputCountry != "") {
+        console.log("getStateForCountry");
+        console.log(inputCountry);
+        var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
+        console.log(stateCountryData);
+        var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+        var cityCountryList = stateCountryData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+        
+        console.log(stateCountryList);
+        state.html("");
+        state.append("option").text("").attr("value","");
+        stateCountryList.forEach(item => {
+            state.append("option").text(item).attr("value",item);
+        });
+        city.html("");
+        city.append("option").text("").attr("value","");
+        cityCountryList.forEach(item => {
+            city.append("option").text(item).attr("value",item);
+        });
+    } else {
+        state.html("");
+        state.append("option").text("").attr("value","");
+        stateList.forEach(item => {
+            state.append("option").text(item).attr("value",item);
+        });
+
+        city.html("");
+        city.append("option").text("").attr("value","");
+        cityList.forEach(item => {
+            city.append("option").text(item).attr("value",item);
+        });
+    }
 };
 
+
+// fill city for state
 function getCityForState() {
-    //var stateCountryList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-    var inputState = d3.select("#country").property("value");
-    console.log("runCountry");
-    console.log(inputCountry);
-    var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
-    console.log(stateCountryData);
-    var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-    
-    console.log(stateCountryList);
-    state.html("");
-    state.append("option").text("").attr("value","");
-    stateCountryList.forEach(item => {
-        state.append("option").text(item).attr("value",item);
-    });
+    var inputState = d3.select("#state").property("value");
+    if (inputState != "") {
+        console.log("getCityForState");
+        console.log(inputState);
+        var stateCityData = tableData.filter(sighting => sighting.state === inputState);
+        console.log(stateCityData);
+        var stateCityList = stateCityData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+        
+        console.log(stateCityList);
+        city.html("");
+        city.append("option").text("").attr("value","");
+        stateCityList.forEach(item => {
+            city.append("option").text(item).attr("value",item);
+        });
+    } else {
+        city.html("");
+        city.append("option").text("").attr("value","");
+        cityList.forEach(item => {
+            city.append("option").text(item).attr("value",item);
+        });
+    }
 };
 
 // Complete the event handler function for the form
