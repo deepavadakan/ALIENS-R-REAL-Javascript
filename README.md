@@ -10,8 +10,6 @@
 
 ## Level 1: Automatic Table and Date Search
 
-Link: [ufo-level-1](UFO-level-1/index.html)
-
 1. Using the index.html file provided, write code that appends a table to the web page and then adds new rows of data for each UFO sighting for the UFO dataset provided.
 
 2. Output table includes a column for date/time, city, state, country, shape, and comment.
@@ -21,8 +19,6 @@ Link: [ufo-level-1](UFO-level-1/index.html)
 ![ufo-level-1](UFO-level-1/static/images/ufo-level-1.png)
 
 ## Level 2: Multiple Search Categories
-
-Link: [ufo-level-2](UFO-level-2/index.html)
 
 1. Everythin from Level-1.
 
