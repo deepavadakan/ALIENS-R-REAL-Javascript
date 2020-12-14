@@ -15,6 +15,13 @@ var state = d3.select("#state");
 var city = d3.select("#city");
 var shape = d3.select("#shape");
 
+// Find the list of all datetime, country, state, city and shape
+var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
+var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
+var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
+var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
+
 // Create event handlers 
 button.on("click", runEnter);
 clearBtn.on("click", runClear);
@@ -23,11 +30,9 @@ country.on("change",getStateForCountry);
 state.on("change",getCityForState);
 
 runClear();
-//runEnter();
 
 function runClear() {
     // create the drop down list for date
-    var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
     console.log(datetimeList);
     datetime.html("");
     datetime.append("option").text("").attr("value","");
@@ -36,7 +41,6 @@ function runClear() {
     });
 
     // create the drop down list for country
-    var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
     console.log(countryList);
     country.html("");
     country.append("option").text("").attr("value","");
@@ -45,7 +49,6 @@ function runClear() {
     });
 
     // create the drop down list for state
-    var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
     console.log(stateList);
     state.html("");
     state.append("option").text("").attr("value","");
@@ -54,7 +57,6 @@ function runClear() {
     });
 
     // create the drop down list for city
-    var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
     console.log(cityList);
     city.html("");
     city.append("option").text("").attr("value","");
@@ -63,7 +65,6 @@ function runClear() {
     });
 
     // create the drop down list for shape
-    var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
     console.log(shapesList);
     shape.html("");
     shape.append("option").text("").attr("value","");
