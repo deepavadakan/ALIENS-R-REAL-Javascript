@@ -16,11 +16,16 @@ var city = d3.select("#city");
 var shape = d3.select("#shape");
 
 // Find the list of all datetime, country, state, city and shape
-var datetimeList = tableData.map(sighting => sighting.datetime).filter((value, index, self) => self.indexOf(value) === index);
-var countryList = tableData.map(sighting => sighting.country).filter((value, index, self) => self.indexOf(value) === index);
-var stateList = tableData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-var cityList = tableData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
-var shapesList = tableData.map(sighting => sighting.shape).filter((value, index, self) => self.indexOf(value) === index);
+var datetimeList = Array.from(new Set(tableData.map(sighting => sighting.datetime)));
+var countryList = Array.from(new Set(tableData.map(sighting => sighting.country)));
+countryList.sort();
+var stateList = Array.from(new Set(tableData.map(sighting => sighting.state)));
+stateList.sort();
+var cityList = Array.from(new Set(tableData.map(sighting => sighting.city)));
+cityList.sort();
+var shapesList = Array.from(new Set(tableData.map(sighting => sighting.shape)));
+shapesList.sort();
+
 // Create event handlers 
 button.on("click", runEnter);
 clearBtn.on("click", runClear);
@@ -80,9 +85,11 @@ function getStateForCountry() {
     if (inputCountry != "") {
         // fill city drop down with cities for selected country
         var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
-        // find list of unique cities and states
-        var stateCountryList = stateCountryData.map(sighting => sighting.state).filter((value, index, self) => self.indexOf(value) === index);
-        var cityCountryList = stateCountryData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+        // find list of unique cities and states        
+        var stateCountryList = Array.from(new Set(stateCountryData.map(sighting => sighting.state)));
+        stateCountryList.sort();
+        var cityCountryList = Array.from(new Set(stateCountryData.map(sighting => sighting.city)));
+        cityCountryList.sort();
         
         // clear the state drop down list
         state.html("");
@@ -121,7 +128,8 @@ function getCityForState() {
         // fill city drop down with cities for selected state
         var stateCityData = tableData.filter(sighting => sighting.state === inputState);
         // find unique states
-        var stateCityList = stateCityData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+        var stateCityList = Array.from(new Set(stateCityData.map(sighting => sighting.city)));
+        stateCityList.sort();
 
         // clear the city drop down list
         city.html("");
@@ -143,7 +151,8 @@ function getCityForState() {
         } else {
             // if country is not empty, list all cities for selected country
             var stateCityData = tableData.filter(sighting => sighting.country === inputCountry);
-            var stateCityList = stateCityData.map(sighting => sighting.city).filter((value, index, self) => self.indexOf(value) === index);
+            var stateCityList = Array.from(new Set(stateCityData.map(sighting => sighting.city)));
+            stateCityList.sort();
             city.html("");
             city.append("option").text("").attr("value","");
             stateCityList.forEach(item => {
