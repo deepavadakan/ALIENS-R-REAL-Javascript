@@ -33,48 +33,36 @@ form.on("submit",runEnter);
 country.on("change",getStateForCountry);
 state.on("change",getCityForState);
 
+// run function to fill drop down list for first time
 runClear();
+
+// function to fill drop down list
+function fillDropdown(dropdownElement, list) {
+    console.log(list);
+    dropdownElement.html("");
+    dropdownElement.append("option").text("").attr("value","");
+    list.forEach(item => {
+        dropdownElement.append("option").text(item).attr("value",item);
+    });
+}
 
 function runClear() {
     // create the drop down list for date
-    console.log(datetimeList);
-    datetime.html("");
-    datetime.append("option").text("").attr("value","");
-    datetimeList.forEach(item => {
-        datetime.append("option").text(item).attr("value",item);
-    });
+    fillDropdown(datetime, datetimeList);
 
     // create the drop down list for country
-    console.log(countryList);
-    country.html("");
-    country.append("option").text("").attr("value","");
-    countryList.forEach(item => {
-        country.append("option").text(item).attr("value",item);
-    });
-
+    fillDropdown(country, countryList);
+    
     // create the drop down list for state
-    console.log(stateList);
-    state.html("");
-    state.append("option").text("").attr("value","");
-    stateList.forEach(item => {
-        state.append("option").text(item).attr("value",item);
-    });
+    fillDropdown(state, stateList);
 
     // create the drop down list for city
-    console.log(cityList);
-    city.html("");
-    city.append("option").text("").attr("value","");
-    cityList.forEach(item => {
-        city.append("option").text(item).attr("value",item);
-    });
+    fillDropdown(city, cityList);
 
     // create the drop down list for shape
-    console.log(shapesList);
-    shape.html("");
-    shape.append("option").text("").attr("value","");
-    shapesList.forEach(item => {
-        shape.append("option").text(item).attr("value",item);
-    });
+    fillDropdown(shape, shapesList);
+    
+    // run function to display all data
     runEnter();
 };
 
@@ -83,39 +71,25 @@ function getStateForCountry() {
     // Get value property for country
     var inputCountry = d3.select("#country").property("value");
     if (inputCountry != "") {
-        // fill city drop down with cities for selected country
+        // filter data for selected country
         var stateCountryData = tableData.filter(sighting => sighting.country === inputCountry);
-        // find list of unique cities and states        
+        // find list of unique states for selected country
         var stateCountryList = Array.from(new Set(stateCountryData.map(sighting => sighting.state)));
         stateCountryList.sort();
+        // find list of unique cities for selected country
         var cityCountryList = Array.from(new Set(stateCountryData.map(sighting => sighting.city)));
         cityCountryList.sort();
         
-        // clear the state drop down list
-        state.html("");
-        state.append("option").text("").attr("value","");
-        stateCountryList.forEach(item => {
-            state.append("option").text(item).attr("value",item);
-        });
+        // fill the state drop down list
+        fillDropdown(state, stateCountryList);
 
-        // clear the city drop down list
-        city.html("");
-        city.append("option").text("").attr("value","");
-        cityCountryList.forEach(item => {
-            city.append("option").text(item).attr("value",item);
-        });
+        // fill the city drop down list
+        fillDropdown(city, cityCountryList);
+        
     } else { //if country is empty, fill city and state drowndown with all data
-        state.html("");
-        state.append("option").text("").attr("value","");
-        stateList.forEach(item => {
-            state.append("option").text(item).attr("value",item);
-        });
+        fillDropdown(state, stateList);
 
-        city.html("");
-        city.append("option").text("").attr("value","");
-        cityList.forEach(item => {
-            city.append("option").text(item).attr("value",item);
-        });
+        fillDropdown(city, cityList);
     }
 };
 
@@ -125,39 +99,29 @@ function getCityForState() {
     var inputState = d3.select("#state").property("value");
 
     if (inputState != "") {
-        // fill city drop down with cities for selected state
+        // filter data for selected state
         var stateCityData = tableData.filter(sighting => sighting.state === inputState);
-        // find unique states
+        // find list of unique cities for selected state
         var stateCityList = Array.from(new Set(stateCityData.map(sighting => sighting.city)));
         stateCityList.sort();
 
-        // clear the city drop down list
-        city.html("");
-        city.append("option").text("").attr("value","");
-        stateCityList.forEach(item => {
-            city.append("option").text(item).attr("value",item);
-        });
+        // fill the city drop down list
+        fillDropdown(city, stateCityList);
+    
     } else {
-        // if city is empty, fill city drop down with all cities
         // check if country is selected
         var inputCountry = d3.select("#country").property("value");
         if (inputCountry === "") {
             // if country is empty, list all cities
-            city.html("");
-            city.append("option").text("").attr("value","");
-            cityList.forEach(item => {
-                city.append("option").text(item).attr("value",item);
-            });
+            fillDropdown(city, cityList);
+            
         } else {
             // if country is not empty, list all cities for selected country
             var stateCityData = tableData.filter(sighting => sighting.country === inputCountry);
             var stateCityList = Array.from(new Set(stateCityData.map(sighting => sighting.city)));
             stateCityList.sort();
-            city.html("");
-            city.append("option").text("").attr("value","");
-            stateCityList.forEach(item => {
-                city.append("option").text(item).attr("value",item);
-            });
+            fillDropdown(city, stateCityList);
+            
         }
     }
 };
