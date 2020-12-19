@@ -27,14 +27,13 @@ var shapesList = Array.from(new Set(tableData.map(sighting => sighting.shape)));
 shapesList.sort();
 
 // Create event handlers 
-button.on("click", runEnter);
-clearBtn.on("click", runClear);
-form.on("submit",runEnter);
+button.on("click", getData);
+clearBtn.on("click", runFillDrowndown);
+form.on("submit",getData);
 country.on("change",getStateForCountry);
 state.on("change",getCityForState);
-
 // run function to fill drop down list for first time
-runClear();
+d3.select(window).on("load", runFillDrowndown);
 
 // function to fill drop down list
 function fillDropdown(dropdownElement, list) {
@@ -46,7 +45,7 @@ function fillDropdown(dropdownElement, list) {
     });
 }
 
-function runClear() {
+function runFillDrowndown() {
     // create the drop down list for date
     fillDropdown(datetime, datetimeList);
 
@@ -63,7 +62,7 @@ function runClear() {
     fillDropdown(shape, shapesList);
     
     // run function to display all data
-    runEnter();
+    getData();
 };
 
 // function to fill state and city dropdown for selected country
@@ -126,14 +125,12 @@ function getCityForState() {
     }
 };
 
-// Complete the event handler function for the form
-function runEnter() {
+// Get the data
+function getData() {
 
-    console.log(d3.event);
+    console.log(`Event: ${d3.event}`);
     // Prevent the page from refreshing if event is not null
-    if (!!d3.event) {
-        d3.event.preventDefault();
-    }
+    d3.event.preventDefault();
     
     // Select the input element and get the raw HTML node
     // And get the value property of the input element
