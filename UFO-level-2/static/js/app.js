@@ -15,7 +15,7 @@ var state = d3.select("#state");
 var city = d3.select("#city");
 var shape = d3.select("#shape");
 
-// Find the list of all datetime, country, state, city and shape
+// Find the list of all datetime, country, state, city and shape and sort the lists
 var datetimeList = Array.from(new Set(tableData.map(sighting => sighting.datetime)));
 var countryList = Array.from(new Set(tableData.map(sighting => sighting.country)));
 countryList.sort();
@@ -28,12 +28,12 @@ shapesList.sort();
 
 // Create event handlers 
 button.on("click", getData);
-clearBtn.on("click", runFillDrowndown);
+clearBtn.on("click", runClear);
 form.on("submit",getData);
 country.on("change",getStateForCountry);
 state.on("change",getCityForState);
 // run function to fill drop down list for first time
-d3.select(window).on("load", runFillDrowndown);
+d3.select(window).on("load", runClear);
 
 // function to fill drop down list
 function fillDropdown(dropdownElement, list) {
@@ -45,7 +45,7 @@ function fillDropdown(dropdownElement, list) {
     });
 }
 
-function runFillDrowndown() {
+function runClear() {
     // create the drop down list for date
     fillDropdown(datetime, datetimeList);
 
